@@ -9,7 +9,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GreetingService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -40,7 +42,7 @@ public class GreetingService {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
             log.error(e.getMessage(),e);
-            formatter.printHelp("Java Exercise 2", options);
+            formatter.printHelp("Java Exercise 3", options);
 
             System.exit(1);
             return;
