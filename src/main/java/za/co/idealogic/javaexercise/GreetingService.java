@@ -41,7 +41,7 @@ public class GreetingService {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage());
             formatter.printHelp("Java Exercise 3", options);
 
             System.exit(1);
