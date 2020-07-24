@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-	<property name="LOG_DIR" value="." />
+	<property name="LOG_DIR" value="./log/" />
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 	    <file>${LOG_DIR}/application.log</file>
 	    <append>true</append>
@@ -12,22 +12,44 @@
 	    </encoder>
 	</appender>
 
+
+  <appender name="FILE2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_DIR}/myrolling.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+      <!-- keep 30 days' worth of history capped at 3GB total size -->
+      <maxHistory>1</maxHistory>
+      <totalSizeCap>1KB</totalSizeCap>
+
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender> 
+
+
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%msg%n</pattern>
+            <pattern>My app is saying: %msg%n</pattern>
         </encoder>
     </appender>
     
     <logger name="za.co.idealogic.javaexercise.GreetingService" level="DEBUG">  
         <appender-ref ref="STDOUT" /> 
+        <appender-ref ref="FILE2" /> 
     </logger> 
     <logger name="za.co.idealogic.javaexercise.JavaExerciseApplication" level="INFO"> 
         <appender-ref ref="FILE" /> 
     </logger> 
  
     <root level="INFO">
+        <appender-ref ref="FILE" /> 
     </root>
 
 </configuration>
